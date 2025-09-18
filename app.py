@@ -1,9 +1,20 @@
 import streamlit as st
 import requests
-import random
+import time
+from streamlit_lottie import st_lottie
 
 # --- Page Config ---
 st.set_page_config(page_title="ZenQuotes Generator", page_icon="🧘", layout="centered")
+
+# --- Load Lottie Animation ---
+def load_lottie_url(url):
+    r = requests.get(url)
+    if r.status_code == 200:
+        return r.json()
+    else:
+        return None
+
+lottie_meditation = load_lottie_url("https://assets10.lottiefiles.com/packages/lf20_touohxv0.json")
 
 # --- Custom CSS ---
 st.markdown("""
@@ -16,6 +27,7 @@ st.markdown("""
             font-style: italic;
             color: #333;
             box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            animation: fadeIn 2s ease-in;
         }
         .author {
             text-align: right;
@@ -23,12 +35,9 @@ st.markdown("""
             margin-top: 10px;
             color: #555;
         }
-        .stButton>button {
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-size: 16px;
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
         }
     </style>
 """, unsafe_allow_html=True)
@@ -36,6 +45,9 @@ st.markdown("""
 # --- Title ---
 st.title("🧘 Random Zen Quote Generator")
 st.subheader("Get inspired by wisdom from ZenQuotes API")
+
+# --- Lottie Animation ---
+st_lottie(lottie_meditation, height=200, key="meditate")
 
 # --- Fetch Quote ---
 def get_quote():
@@ -46,14 +58,4 @@ def get_quote():
         author = data[0]['a']
         return quote, author
     else:
-        return "Could not fetch quote at the moment.", "ZenQuotes API"
-
-# --- Display Quote ---
-if st.button("✨ Generate Quote"):
-    quote, author = get_quote()
-    st.markdown(f"<div class='quote-box'>{quote}</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='author'>— {author}</div>", unsafe_allow_html=True)
-
-# --- Footer ---
-st.markdown("---")
-st.caption("Powered by [ZenQuotes API](https://zenquotes.io/) • Made with ❤️ using Streamlit")
+       
