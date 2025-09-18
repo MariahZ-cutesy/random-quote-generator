@@ -14,6 +14,12 @@ def get_quote():
     else:
         return "Could not fetch quote.", "Unknown"
 
+# --- Display Quote ---
+if st.button("✨ Generate Quote"):
+    quote, author = get_quote()
+    st.markdown(f"<div class='quote-box'>{quote}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='author'>— {author}</div>", unsafe_allow_html=True)
+
 if st.button("Generate Quote"):
     quote, author = get_quote()
     st.markdown(f"> *{quote}*")
