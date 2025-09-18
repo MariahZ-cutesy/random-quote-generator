@@ -1,29 +1,20 @@
 import streamlit as st
 import requests
-import time
 
-st.set_page_config(page_title="ZenQuotes Generator", page_icon="🧘", layout="centered")
+st.set_page_config(page_title="Random Quote Generator", page_icon="📝")
 
-st.title("🧘 Random Zen Quote Generator")
-st.subheader("Get inspired by wisdom from ZenQuotes API")
+st.title("📝 Random Quote Generator")
+st.write("Click the button below to fetch a random quote from ZenQuotes API!")
 
 def get_quote():
     response = requests.get("https://zenquotes.io/api/random")
     if response.status_code == 200:
-        data = response.json()
-        return data[0]['q'], data[0]['a']
+        data = response.json()[0]
+        return data["q"], data["a"]
     else:
-        return "Could not fetch quote.", "ZenQuotes API"
+        return "Could not fetch quote.", "Unknown"
 
-if st.button("✨ Generate Quote"):
-    placeholder = st.empty()
-    with placeholder.container():
-        st.markdown("⏳ Loading wisdom... 🧠")
-        time.sleep(1.5)
-        quote, author = get_quote()
-        placeholder.empty()
-        st.markdown(f"> *{quote}*")
-        st.markdown(f"**— {author}**")
-
-st.markdown("---")
-st.caption("Powered by ZenQuotes • Made with ❤️ using Streamlit")
+if st.button("Generate Quote"):
+    quote, author = get_quote()
+    st.markdown(f"> *{quote}*")
+    st.markdown(f"— **{author}**")
