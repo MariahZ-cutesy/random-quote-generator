@@ -58,4 +58,19 @@ def get_quote():
         author = data[0]['a']
         return quote, author
     else:
-       
+        return "Could not fetch quote at the moment.", "ZenQuotes API"
+
+# --- Display Quote with Animation ---
+if st.button("✨ Generate Quote"):
+    placeholder = st.empty()
+    with placeholder.container():
+        st.markdown("⏳ *Fetching wisdom...*")
+        time.sleep(1.5)
+        quote, author = get_quote()
+        placeholder.empty()
+        st.markdown(f"<div class='quote-box'>{quote}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='author'>— {author}</div>", unsafe_allow_html=True)
+
+# --- Footer ---
+st.markdown("---")
+st.caption("Powered by https://zenquotes.io/ • Made with ❤️ using Streamlit")
