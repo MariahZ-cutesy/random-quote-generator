@@ -12,6 +12,11 @@ theme = st.selectbox("Choose a theme:", ["Classic", "Dark", "Colorful"])
 # --- Quote Fetching Function ---
 def get_quote():
     response = requests.get("https://zenquotes.io/api/random")
+    
+    # Debugging output
+    st.write("Status Code:", response.status_code)
+    st.write("Response Text:", response.text)
+    
     if response.status_code == 200:
         data = response.json()[0]
         return data["q"], data["a"]
