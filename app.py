@@ -32,4 +32,4 @@ if st.button("✨ Generate Quote"):
         )
 
 # Attribution
-st.caption("Quotes provided by [ZenQuotes API](https://zenquotes
+st.caption("Quotes provided by ZenQuotes API")
