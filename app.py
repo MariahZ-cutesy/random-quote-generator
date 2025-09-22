@@ -18,8 +18,18 @@ def get_quote():
 if st.button("✨ Generate Quote"):
     with st.spinner("Fetching a quote..."):
         quote, author = get_quote()
-    st.markdown(f"<div style='font-size:24px; font-style:italic; margin-top:20px;'>{quote}</div>", unsafe_allow_html=True)
-    st.markdown(f"<div style='font-size:20px; margin-top:10px;'>— {author}</div>", unsafe_allow_html=True)
+    
+    if quote == "Could not fetch quote.":
+        st.error("Oops! Something went wrong while fetching the quote.")
+    else:
+        st.markdown(
+            f"<div style='font-size:24px; font-style:italic; margin-top:20px;'>{quote}</div>",
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            f"<div style='font-size:20px; margin-top:10px;'>— {author}</div>",
+            unsafe_allow_html=True
+        )
 
-# Optional: Add attribution
+# Attribution
 st.caption("Quotes provided by [ZenQuotes API](https://zenquotes
