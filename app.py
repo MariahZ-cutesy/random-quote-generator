@@ -16,9 +16,10 @@ def get_quote():
 
 # --- Display Quote ---
 if st.button("✨ Generate Quote"):
-    quote, author = get_quote()
+    with st.spinner("Fetching a quote..."):
+        quote, author = get_quote()
     st.markdown(f"<div style='font-size:24px; font-style:italic; margin-top:20px;'>{quote}</div>", unsafe_allow_html=True)
     st.markdown(f"<div style='font-size:20px; margin-top:10px;'>— {author}</div>", unsafe_allow_html=True)
 
 # Optional: Add attribution
-st.caption("Quotes provided by ZenQuotes API")
+st.caption("Quotes provided by [ZenQuotes API](https://zenquotes
